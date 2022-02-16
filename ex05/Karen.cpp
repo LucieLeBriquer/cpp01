@@ -42,12 +42,12 @@ void	Karen::error(void) const
 	std::cout << "[ ERROR ]\nThis is unacceptable, I want to speak to the manager now." << std::endl << std::endl;
 }
 
-static int	getLevel(std::string level)
+int	getLevel(std::string level)
 {
 	const std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-	int					levelNumber = -1;
+	int					levelNumber = 4;
 
-	for (int i = 0; i < 4 && levelNumber == -1; i++)
+	for (int i = 0; i < 4 && levelNumber == 4; i++)
 	{
 		if (level == levels[i])
 			levelNumber = i;
@@ -60,7 +60,7 @@ void	Karen::complain(std::string level) const
 	const function_p	complains[4] = {&Karen::debug, &Karen::info, &Karen::warning, &Karen::error};
 	int					levelNumber = getLevel(level);
 
-	if (levelNumber >= 0)
+	if (levelNumber < 4)
 		(this->*(complains[levelNumber]))();
 	else
 		std::cout << "[ INVALID ]\nInvalid level. Try again." << std::endl << std::endl;
