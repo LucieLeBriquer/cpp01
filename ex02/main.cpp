@@ -24,5 +24,6 @@ int	main(void)
 	std::cout << "Content of the string : " << str << std::endl;
 	std::cout << "    using stringPTR " << *stringPTR << std::endl;
 	std::cout << "    using stringREF " << stringREF << std::endl;
+
 	return (0);
 }
