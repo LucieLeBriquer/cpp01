@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Karen.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lle-briq <lle-briq@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 16:45:47 by lle-briq          #+#    #+#             */
+/*   Updated: 2022/02/16 18:18:11 by lle-briq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Karen.hpp"
 
 Karen::Karen()
@@ -30,18 +42,26 @@ void	Karen::error(void) const
 	std::cout << "[ ERROR ]\nThis is unacceptable, I want to speak to the manager now." << std::endl << std::endl;
 }
 
-void	Karen::complain(std::string level) const
+static int	getLevel(std::string level)
 {
 	const std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-	const function_p	complains[4] = {&Karen::debug, &Karen::info, &Karen::warning, &Karen::error};
+	int					levelNumber = -1;
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4 && levelNumber == -1; i++)
 	{
 		if (level == levels[i])
-		{
-			(this->*(complains[i]))();
-			return ;
-		}
+			levelNumber = i;
 	}
-	std::cout << "[ INVALID ] Invalid level. Try again." << std::endl << std::endl;
+	return (levelNumber);
+}
+
+void	Karen::complain(std::string level) const
+{
+	const function_p	complains[4] = {&Karen::debug, &Karen::info, &Karen::warning, &Karen::error};
+	int					levelNumber = getLevel(level);
+
+	if (levelNumber >= 0)
+		(this->*(complains[levelNumber]))();
+	else
+		std::cout << "[ INVALID ]\nInvalid level. Try again." << std::endl << std::endl;
 }
