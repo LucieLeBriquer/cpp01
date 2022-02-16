@@ -6,24 +6,22 @@
 /*   By: lle-briq <lle-briq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 01:11:05 by lle-briq          #+#    #+#             */
-/*   Updated: 2021/12/01 17:01:18 by lle-briq         ###   ########.fr       */
+/*   Updated: 2022/02/16 18:00:58 by lle-briq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #define ARGS 0
-#define EMPTY 1
-#define INPUT 2
-#define OUTPUT 3
+#define INPUT 1
+#define OUTPUT 2
 
 int	printError(int err)
 {
 	if (err == ARGS)
 		std::cerr << "Error : wrong number of arguments, use ./replace file s1 s2" << std::endl;
-	else if (err == EMPTY)
-		std::cerr << "Error : empty strings" << std::endl;
 	else if (err == INPUT)
 		std::cerr << "Error : input file" << std::endl;
 	else if (err == OUTPUT)
@@ -55,29 +53,34 @@ int	main(int argc, char **argv)
 {
 	std::ifstream	fileIn;
 	std::ofstream	fileOut;
-	std::string		file;
 	std::string		s1;
 	std::string		s2;
 	std::string		buff;
+	std::string		file;
+	std::string		fileReplace;
 
 	if (argc != 4)
 		return (printError(ARGS));
-	file = argv[1];
+	
 	s1 = argv[2];
 	s2 = argv[3];
-	if (s1.length() == 0 || s2.length() == 0)
-		return (printError(EMPTY));
-	fileIn.open(file);
+	
+	file = argv[1];
+	fileIn.open(file.c_str());
 	if (fileIn.good() == false)
 		return (printError(INPUT));
-	fileOut.open(file + ".replace");
+	
+	fileReplace = file + ".replace";
+	fileOut.open(fileReplace.c_str());
 	if (fileOut.good() == false)
 	{
 		fileIn.close();
 		return (printError(OUTPUT));
 	}
+
 	while (getline(fileIn, buff))
 		replaceStrings(fileOut, s1, s2, buff + '\n');
+	
 	fileIn.close();
 	fileOut.close();
 	return (0);
