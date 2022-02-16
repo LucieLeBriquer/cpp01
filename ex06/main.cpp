@@ -18,18 +18,6 @@ static int	argError(void)
 	return (1);
 }
 
-static int	getLevel(std::string level)
-{
-	const std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-
-	for (int i = 0; i < 4; i++)
-	{
-		if (level == levels[i])
-			return (i);
-	}
-	return (4);
-}
-
 int	main(int argc, char **argv)
 {
 	Karen	karen;
@@ -50,7 +38,7 @@ int	main(int argc, char **argv)
 			karen.complain("ERROR");
 			break ;
 		default :
-			std::cout << "[ Probably complaining about insignificant problem. ]" << std::endl << std::endl;
+			std::cout << "[ Probably complaining about insignificant problem. ]" << std::endl;
 	}
 	return (0);
 }

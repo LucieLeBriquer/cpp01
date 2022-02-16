@@ -29,5 +29,6 @@ class Karen
 };
 
 typedef void (Karen::*function_p)(void) const;
+int		getLevel(std::string level);
 
 #endif

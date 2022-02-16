@@ -1,4 +1,4 @@
-CC			= clang++ -Wall -Wextra -Werror
+CC			= clang++ -Wall -Wextra -Werror -std=c++98
 RM			= rm -rf
 NAME		= ./karenFilter
 NAME_SHORT	= karenFilter
